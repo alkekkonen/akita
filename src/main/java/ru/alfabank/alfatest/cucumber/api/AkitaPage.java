@@ -16,6 +16,7 @@
 package ru.alfabank.alfatest.cucumber.api;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ import ru.alfabank.alfatest.cucumber.utils.Reflection;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -309,7 +311,10 @@ public abstract class AkitaPage extends ElementsContainer {
                 .peek((Field f) -> {
                     if (!SelenideElement.class.isAssignableFrom(f.getType())
                             && !AkitaPage.class.isAssignableFrom(f.getType())) {
-                        if (List.class.isAssignableFrom(f.getType())) {
+                        if (ElementsCollection.class.isAssignableFrom(f.getType())){
+                            return;
+                        }
+                        else if (List.class.isAssignableFrom(f.getType())) {
                             ParameterizedType listType = (ParameterizedType) f.getGenericType();
                             Class<?> listClass = (Class<?>) listType.getActualTypeArguments()[0];
                             if (SelenideElement.class.isAssignableFrom(listClass) || AkitaPage.class.isAssignableFrom(listClass)) {

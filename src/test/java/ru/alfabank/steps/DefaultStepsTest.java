@@ -619,6 +619,15 @@ public class DefaultStepsTest {
         ds.checkIfListInnerTextConsistsOfTableElements("List3", types);
     }
 
+    @Test
+    public void checkIfElementsCollectionInnerTextConsistsOfTableElements() {
+        ArrayList<String> types = new ArrayList<>();
+        types.add("CollectionItem 1");
+        types.add("CollectionItem 1");
+        types.add("CollectionItem 1");
+        ds.checkIfListInnerTextConsistsOfTableElements("List4", types);
+    }
+
     @Test()
     public void testListInnerTextCorrespondsToListFromVariable() {
         ArrayList<String> arrayList = new ArrayList<>();
